@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+<link href="{% static 'js/app.js' %}">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<form method="POST">
+    {% csrf_token %}
+    <legend><h1> Welcome to the Ad Scheduler</h1> </legend><br><br>
+    Select Campaign : {{ adscheduler.campaign_name }}
+    <br><br>
+<div id="data">
+    <div id="0">
+<!--        {{ adscheduler.days }}-->
+<!--        {{ adscheduler.starttime }}-->
+<!--        {{ adscheduler.endtime }}-->
+
+        </div>
+     {% for error in adscheduler.non_field_errors  %}
+            {{ error }}
+        {% endfor  %}
+</div>
+
+
+<input type="button" id="add" value="Add">
+    <input id="save" type="submit" value="Save" name="btn_adscheduler">
+<!--        <a href="{% url 'createRecipe' %}">Build your own</a>-->
+  </form>
+<script>
+$(document).ready(function() {
+console.log("selected",$('#id_campaign_name').val().length);
+ $("#add").attr("disabled", true);
+  $("#save").attr("disabled", true);
+var count=0
+$("#add").click(function(event){
+        alert($("#id_campaign_name").val());
+         count++;
+         console.log(count);
+         var st = '{{ adscheduler.days | escapejs }}';
+         var elm = document.createElement('div');
+            elm.setAttribute("id", count);
+            elm.setAttribute("class", 'input');
+            elm.innerHTML="{{ adscheduler.days | escapejs }}&nbsp;{{ adscheduler.starttime | escapejs }}&nbsp;{{ adscheduler.endtime | escapejs }}&nbsp;&nbsp;"
+             document.getElementById('data').appendChild(elm);
+             document.getElementById(count).innerHTML+='<input type=button class=cross value=x>'
+});
+$('#id_campaign_name').change(function() {
+if($('#id_campaign_name').val().length!=0){
+count=0;
+document.getElementById('data').innerHTML='';
+$("#add").removeAttr("disabled");
+$("#save").removeAttr("disabled");
+     $.ajax({
+                type: "POST",
+                url: "/adscheduler/",
+                data: {
+                    'campaign_id': $(this).val(),
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+
+
+                   for (var i = 1; i <= data.days.length; i++) {
+
+             var elm = document.createElement('div');
+            elm.setAttribute("id", i);
+            elm.setAttribute("class", 'input');
+            elm.innerHTML="{{ adscheduler.days | escapejs }}&nbsp;{{ adscheduler.starttime | escapejs }}&nbsp;{{ adscheduler.endtime | escapejs }}&nbsp;&nbsp;"
+             document.getElementById('data').appendChild(elm);
+             document.getElementById(i).innerHTML+='<input type=button class=cross value=x>'
+             console.log('data.days:',data.days[i],",type:",typeof(data.days));
+              $("#"+i).find("#id_days").val(data.days[i-1]);
+              $("#"+i).find("#id_starttime").val(data.starttime[i-1]);
+              $("#"+i).find("#id_endtime").val(data.endtime[i-1]);
+            console.log("count:",count);
+            count=i;
+
+                    }
+
+                }
+            });
+            }
+});
+
+{% if saved  %}
+     $('#id_campaign_name').val("");
+{% endif %}
+
+$("#data").on('click', '.cross', function(){
+    var parent_id=$(this).parent().attr('id');
+    document.getElementById(parent_id).remove();
+    count--;
+            $('.input').each(function (i) {
+                 $(this).attr('id',i+1);
+                });
+}) ;
+
+
+});
+</script>
+
+
+
+</body>
+</html>

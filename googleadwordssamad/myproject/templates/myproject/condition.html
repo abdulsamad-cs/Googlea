@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="conditions_div">
+<br>
+
+
+
+<center>
+<button name="attribute_operand" type="button"  id="attribute_operand">Select Value</button>
+<button name="attribute_operation" type="button" id="attribute_operation">operation</button>
+<button name="value_operand" type="button" id="value_operand">Select Value</button></center>
+<br><br><br><br>
+
+<select name="current_scope" id="select_scope">
+
+  <option value="Campaign">Campaign</option>
+  <option value="Groups">Adgroups</option>
+  <option value="Keywords">keywords</option>
+</select>
+<select name="date_range" id="date_range">
+
+  <option value="Today">Today</option>
+  <option value="Yesterday">Yesterday</option>
+  <option value="This Month">This Month</option>
+  <option value="Last Month">Last Month</option>
+  <option value="Last 7 days">Last 7 days</option>
+  <option value="Last 14 days">Last 14 days</option>
+  <option value="Last 30 days">Last 30 days</option>
+
+
+
+</select>
+<input id="submit_btn" type="button" value="Next" style=" padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px; font-size: 16px; float:right;">
+
+<br><br><br>
+
+<div id="attributes_div">
+
+    {% for e in fields %}
+        <button   class="field_btn" tagvalue="{{ e.1 }}" value="{{ e.2 }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ e.0 }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+   {% endfor %}
+
+</div>
+
+<div id="operations_div_string">
+    {% for key,value in operations.items %}
+    {% if key == 'string' %}
+        {% for k,v in value.items %}
+    <button  name="field" class="operation_btn" tagvalue="{{ k }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+
+</div>
+
+<div id="operations_div_number">
+
+
+
+    {% for key,value in operations.items %}
+
+
+     {% if key == 'number' %}
+        {% for k,v in value.items %}
+
+    <button  name="field" class="operation_btn" tagvalue="{{ k }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+
+
+    {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+
+</div>
+
+<div id="operations_div_label">
+
+
+
+    {% for key,value in operations.items %}
+     {% if key == 'label' %}
+            {% for k,v in value.items %}
+
+    <button  name="field" class="operation_btn" tagvalue="{{ k }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+
+
+</div>
+
+
+
+<div id="value_div_string">
+<center>
+  Enter String:<br>
+  <input type="text" class="value_text">
+<!--    <button   style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">Next</button>-->
+</center>
+
+</div>
+<div id="value_div_number">
+<center>
+  Enter Number:<br>
+  <input type="text" class="value_text">
+<!--    <button   style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">Next</button>-->
+</center>
+
+</div>
+
+<div id="value_div_bidding">
+
+    {% for key,value in values_operand.items %}
+     {% if key == 'BiddingStrategyType' %}
+            {% for v in value %}
+
+    <button   class="values_btn" tagvalue="{{ v.1 }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v.0 }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+
+</div>
+<div id="value_div_advertising">
+
+    {% for key,value in values_operand.items %}
+     {% if key == 'AdvertisingChannelType' %}
+            {% for v in value %}
+
+    <button   class="values_btn" tagvalue="{{ v.1 }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v.0 }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+</div>
+<div id="value_div_matchtype">
+
+    {% for key,value in values_operand.items %}
+     {% if key == 'KeywordMatchType' %}
+            {% for v in value %}
+
+    <button   class="values_btn" tagvalue="{{ v.1 }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v.0 }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+</div>
+
+
+
+<script>
+    $(document).ready(function() {
+                        $("#submit_btn").hide();
+        $("#submit_btn").attr("disabled", true);;
+        $("#value_div_bidding").hide();
+             $("#value_div_advertising").hide();
+             $("#value_div_matchtype").hide();
+             $("#value_div_number").hide();
+             $("#value_div_string").hide();
+        $("#select_scope").hide();
+        $("#date_range").hide();
+        $("#attributes_div").hide();
+
+        $("#attribute_operand").click(function(event) {
+            $("#select_scope").show();
+                    $("#date_range").show();
+                    $("#submit_btn").show();
+
+            $("#attributes_div").show();
+            $("#operations_div_string").hide();
+            $("#operations_div_number").hide();
+            $("#operations_div_label").hide();
+             $("#value_div_bidding").hide();
+             $("#value_div_advertising").hide();
+             $("#value_div_matchtype").hide();
+             $("#value_div_number").hide();
+             $("#value_div_string").hide();
+        });
+
+        $("#value_operand").click(function(event) {
+            $("#attributes_div").hide();
+
+
+
+            $("#operations_div_string").hide();
+            $("#operations_div_number").hide();
+            $("#operations_div_label").hide();
+
+           if ($("#attribute_operand").attr('tagvalue')=='BiddingStrategyType')
+           {
+            $("#value_div_bidding").show();
+           }
+           else if ($("#attribute_operand").attr('tagvalue')=='AdvertisingChannelType')
+           {
+            $("#value_div_advertising").show();
+           }
+           else if ($("#attribute_operand").attr('tagvalue')=='KeywordMatchType')
+           {
+            $("#value_div_matchtype").show();
+           }
+           else if ($("#attribute_operand").attr('value')=='number')
+           {
+            $("#value_div_number").show();
+           }
+           else if ($("#attribute_operand").attr('value')=='string')
+           {
+               $("#value_div_string").show();
+           }
+           else if ($("#attribute_operand").attr('value')=='label')
+           {
+               $("#value_div_string").show();
+           }
+
+        });
+
+        $("#attributes_div").on('click', '.field_btn', function() {
+
+            $("#attribute_operand").text($(this).text());
+            $("#attribute_operand").attr('tagvalue',$(this).attr('tagvalue'))
+            $("#attribute_operand").val($(this).val());
+            $("#attribute_operation").val($(this).val());
+            $("#attribute_operation").text('operation');
+
+
+
+        });
+          $("#value_div_bidding").on('click', '.values_btn', function() {
+
+            $("#value_operand").text($(this).text());
+            $("#value_operand").attr('tagvalue',$(this).attr('tagvalue'));
+                    $("#submit_btn").removeAttr("disabled");
+
+        });
+          $("#value_div_advertising").on('click', '.field_btn', function() {
+
+             $("#value_operand").text($(this).text());
+            $("#value_operand").attr('tagvalue',$(this).attr('tagvalue'))
+            $("#submit_btn").removeAttr("disabled");
+
+
+
+        });
+          $("#value_div_matchtype").on('click', '.field_btn', function() {
+
+             $("#value_operand").text($(this).text());
+            $("#value_operand").attr('tagvalue',$(this).attr('tagvalue'))
+            $("#submit_btn").removeAttr("disabled");
+
+
+
+        });
+        $('.value_text').on('input',function(e){
+            $("#value_operand").text($(this).val());
+             $("#value_operand").attr('tagvalue',$(this).val())
+             $("#submit_btn").removeAttr("disabled");
+});
+
+
+
+
+        $("#operations_div_string").hide();
+        $("#operations_div_number").hide();
+        $("#operations_div_label").hide();
+
+        $("#attribute_operation").click(function() {
+
+            if ($(this).attr('value') == 'string') {
+                $("#operations_div_string").show();
+            } else if ($(this).attr('value') == 'number') {
+                $("#operations_div_number").show();
+            }
+            if ($(this).attr('value') == 'label') {
+                $("#operations_div_label").show();
+            }
+
+
+            $("#attributes_div").hide();
+             $("#value_div").hide();
+
+        });
+
+        $(".operation_btn").click(function() {
+            $("#attribute_operation").text($(this).text());
+            $("#attribute_operation").attr('tagvalue',$(this).attr('tagvalue'));
+
+        });
+
+
+        $("#submit_btn").click(function() {
+         $.ajax({
+      type: "POST",
+      url: "/addRules/",
+      data: {
+      current_scope : $('#select_scope').val(),
+      date_range : $('#date_range').val(),
+      attribute_operand : $('#attribute_operand').attr('tagvalue'),
+      attribute_operation : $('#attribute_operation').attr('tagvalue'),
+      operation_type : $('#attribute_operation').attr('value'),
+      value_operand : $('#value_operand').attr('tagvalue')
+      }
+      ,
+      success: function(result){
+        alert("Rule added");
+        alert(JSON.stringify(result));
+        window.location.href = '/addRules/';
+      }
+    });
+
+
+        });
+
+
+        $('#select_scope').change(function() {
+            $("#operations_div_string").hide();
+            $("#operations_div_number").hide();
+            $("#operations_div_label").hide();
+            $("#value_div").hide();
+            var value = $(this).val();
+            var attr_div = $('#attributes_div').html();
+
+            $.ajax({
+                type: "POST",
+                url: "/condition/",
+                data: {
+                    'current_scope': value,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+
+                    $('#attributes_div').html(data);
+
+
+                    $("#attributes_div").show();
+
+
+
+
+                }
+            });
+        });
+
+    });
+</script>
+</div>
+</body>
+</html>
+

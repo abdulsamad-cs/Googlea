@@ -1,0 +1,52 @@
+Current Bid,CpcBid,number
+Campaign Name,CampaignName,string
+Ad group Name,AdGroupName,string
+Match Type,KeywordMatchType,string
+First page CPC,FirstPageCpc,number
+Top of page CPC,TopOfPageCpc,number
+First position CPC,FirstPositionCpc,number
+Keyword,Criteria,string
+Label Name,Labels,label
+Account ID,ExternalCustomerId,string
+Campaign ID,CampaignId,string
+Ad group ID,AdGroupId,string
+Keyword ID,Id,string
+Quality score,QualityScore,number
+Quality score (hist.),HistoricalQualityScore,number
+Exp. CTR,SearchPredictedCtr,number
+Exp. CTR (hist.),HistoricalSearchPredictedCtr,number
+Landing page exp.,PostClickQualityScore,number
+Landing page exp. (hist.),HistoricalLandingPageQualityScore,number
+Ad relevance,CreativeQualityScore,number
+Ad relevance (hist.),HistoricalCreativeQualityScore,number
+Clicks,Clicks,number
+Impressions,Impressions,number
+Cost,Cost,number
+CTR,Ctr,number
+Avg. CPC,AverageCpc,number
+Avg. position,AveragePosition,number
+Impr. (Top) %,TopImpressionPercentage,number
+Impr. (Abs. Top) %,AbsoluteTopImpressionPercentage,number
+Conversions,Conversions,number
+All conv.,AllConversions,number
+All conv. value,AllConversionValue,number
+All conv. rate,AllConversionRate,number
+Conv. value,ConversionValue,number
+View-through conv.,ViewThroughConversions,number
+Conv. rate,ConversionRate,number
+Value / conv.,ValuePerConversion,number
+Cost / all conv.,CostPerAllConversion,number
+Cost / conv.,CostPerConversion,number
+ROAS,ROAS,number
+All conv. val/cost,all_conversion_value_per_cost,number
+All conv. val/click,all_conversion_value_per_click,number
+Conv. val/cost,conversion_value_per_cost,number
+Click Assisted Conv.,ClickAssistedConversions,number
+Impr. Assisted Conv.,ImpressionAssistedConversions,number
+Search Exact match IS,SearchExactMatchImpressionShare,string
+Search Impr. share,SearchImpressionShare,string
+Search Lost IS (rank),SearchRankLostImpressionShare,string
+Search abs. top IS,SearchAbsoluteTopImpressionShare,string
+Search top IS,SearchTopImpressionShare,string
+Search lost top IS (rank),SearchRankLostTopImpressionShare,string
+Search lost abs. top IS (rank),SearchRankLostAbsoluteTopImpressionShare,string

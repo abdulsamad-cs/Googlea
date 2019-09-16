@@ -1,0 +1,26 @@
+<form method="POST">
+    {% csrf_token %}
+    <legend> Add Campaign </legend><br><br>
+    <fieldset >
+        {{ add_campaign_form.as_p }}
+
+    </fieldset>
+    <input type="submit" value="Add" name="btn_add_campaign">
+  </form>
+
+<br>
+<legend> Campaign </legend>
+<form action="/myproject/show/">
+
+    <input type="submit" value="Show all Campaigns" name="btn_show_campaign"/>
+</form>
+<br>
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}

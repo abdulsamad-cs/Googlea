@@ -1,0 +1,25 @@
+>= greater than or equal to,>=,number
+> greater than,>,number
+<= less than or equal to,<=,number
+< less than,<,number
+== equal to,==,number
+contains,c,string
+does not contain,nc,string
+is equal to,e,string
+is not equal to,ne,string
+starts with,^,string
+ends with,$,string
+contains (ignore case),cic,string
+does not contain (ignore case),ncic,string
+is equal to (ignore case),eic,string
+is not equal to (ignore case),neic,string
+starts with (ignore case),^ic,string
+ends with (ignore case),$ic,string
+in,in,string
+in (ignore case),inic,string
+is equal to,e,label
+is not equal to,ne,label
+is equal to (ignore case),eic,label
+is not equal to (ignore case),nic,label
+is equal to any of,ea,label
+is not equal to any of,nea,label

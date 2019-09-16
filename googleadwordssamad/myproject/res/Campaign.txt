@@ -1,0 +1,43 @@
+Campaign ID,CampaignId,string
+Campaign Name,CampaignName,string
+Account ID,ExternalCustomerId,string
+Labels,Labels,label
+Bid Strategy Type,BiddingStrategyType,string
+Advertising Channel,AdvertisingChannelType,string
+Clicks,Clicks,number
+Impressions,Impressions,number
+Cost,Cost,number
+CTR,Ctr,number
+Avg. CPC,AverageCpc,number
+Avg. position,AveragePosition,number
+Impr. (Top) %,TopImpressionPercentage,number
+Impr. (Abs. Top) %,AbsoluteTopImpressionPercentage,number
+Conversions,Conversions,number
+All conv.,AllConversions,number
+All conv. value,AllConversionValue,number
+All conv. rate,AllConversionRate,number
+Conv. value,ConversionValue,number
+View-through conv.,ViewThroughConversions,number
+Conv. rate,ConversionRate,number
+Value / conv.,ValuePerConversion,number
+Value / all conv.,ValuePerAllConversion,number
+Cost / all conv.,CostPerAllConversion,number
+Cost / conv.,CostPerConversion,number
+ROAS,ConversionValue/Cost,number
+All conv. val/cost,all_conversion_value_per_cost,number
+All conv. val/click,all_conversion_value_per_click,number
+Conv. val/cost,conversion_value_per_cost,number
+Click Assisted Conv.,ClickAssistedConversions,number
+Impr. Assisted Conv.,ImpressionAssistedConversions,number
+Search Exact match IS,SearchExactMatchImpressionShare,number
+Search Impr. share,SearchImpressionShare,number
+Search Lost IS (rank),SearchRankLostImpressionShare,number
+Search Lost IS (budget),SearchBudgetLostImpressionShare,number
+Content Lost IS (budget),ContentBudgetLostImpressionShare,number
+Content Lost IS (rank),ContentRankLostImpressionShare,number
+Content Impr. share,ContentImpressionShare,number
+Search abs. top IS,SearchAbsoluteTopImpressionShare,number
+Click share,SearchClickShare,number
+Search top IS,SearchTopImpressionShare,number
+Search lost top IS (rank),SearchRankLostTopImpressionShare,number
+Search lost abs. top IS (rank),SearchRankLostAbsoluteTopImpressionShare,number

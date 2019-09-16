@@ -1,0 +1,23 @@
+<form method="POST">
+    {% csrf_token %}
+    <legend> Add Keyword </legend><br><br>
+    <fieldset >
+        {{ add_keyword_form.as_p }}
+
+    </fieldset>
+    <input type="submit" value="Add keyword" name="btn_addkeyword">
+  </form>
+
+<legend> Keywords </legend>
+<form action="/myproject/showkeywords/">
+
+    <input type="submit" value="Show all keywords" name="btn_show_keywords"/>
+</form>
+<br>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}

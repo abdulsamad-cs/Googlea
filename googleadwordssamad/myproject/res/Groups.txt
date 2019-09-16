@@ -1,0 +1,42 @@
+Current Bid,CpcBid,number
+Campaign Name,CampaignName,string
+Ad group Name,AdGroupName,string
+Label Name,Labels,label
+Target ROAS,EffectiveTargetRoas,number
+Target CPA,TargetCpa,number
+Account ID,ExternalCustomerId,string
+Campaign ID,CampaignId,string
+Ad group ID,AdGroupId,string
+Clicks,Clicks,number
+Impressions,Impressions,number
+Cost,Cost,number
+CTR,Ctr,number
+Avg. CPC,AverageCpc,number
+Avg. position,AveragePosition,number
+Impr. (Top) %,TopImpressionPercentage,number
+Impr. (Abs. Top) %,AbsoluteTopImpressionPercentage,number
+Conversions,Conversions,number
+All conv.,AllConversions,number
+All conv. value,AllConversionValue,number
+All conv. rate,AllConversionRate,number
+Conv. value,ConversionValue,number
+View-through conv.,ViewThroughConversions,number
+Conv. rate,ConversionRate,number
+Value / conv.,ValuePerConversion,number
+Value / all conv.,ValuePerAllConversion,number
+Cost / all conv.,CostPerAllConversion,number
+Cost / conv.,CostPerConversion,number
+ROAS,ROAS,number
+All conv. val/cost,all_conversion_value_per_cost,number
+All conv. val/click,all_conversion_value_per_click,number
+Conv. val/cost,conversion_value_per_cost,number
+Click Assisted Conv.,ClickAssistedConversions,number
+Impr. Assisted Conv.,ImpressionAssistedConversions,number
+Search Exact match IS,SearchExactMatchImpressionShare,number
+Search Impr. share,SearchImpressionShare,number
+Search Lost IS (rank),SearchRankLostImpressionShare,number
+Content Impr. share,ContentImpressionShare,number
+Search abs. top IS,SearchAbsoluteTopImpressionShare,number
+Search top IS,SearchTopImpressionShare,number
+Search lost top IS (rank),SearchRankLostTopImpressionShare,number
+Search lost abs. top IS (rank),SearchRankLostAbsoluteTopImpressionShare,number

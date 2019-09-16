@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Settings</title>
+</head>
+
+<body>
+<h>Welcome to Recipe Settings</h><br>
+<h2>Recipe Scope: {{ scope }} </h2><br><br>
+<form method="POST">
+    {% csrf_token %}
+    <legend> Filter Data </legend>
+    <fieldset >
+        {{ recipe_setting_form.as_p }}
+
+
+    </fieldset>
+    <input type="submit" value="Proceed" name="btn_proceed">
+  </form>
+
+
+
+
+</body>
+</html>

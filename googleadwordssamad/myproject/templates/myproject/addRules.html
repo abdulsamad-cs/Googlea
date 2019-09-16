@@ -1,0 +1,903 @@
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <title>Add Rules</title>
+</head>
+<div id="addRules">
+<h1>Welcome to add rules</h1>
+    <legend>Run on all "{{ request.session.scope }}" of this account </legend><br>
+
+<!--<form method="post" action="/condition/">-->
+<!--    {% csrf_token %}-->
+<div id="rule_div">
+        <div class="rule_div" name="rule_div_name">
+    <fieldset>
+    <legend class="rule_number">Rule - 1</legend>
+    <h2>if</h2>
+    <div class="condition_block"  style="border: 5px solid black;
+  padding: 10px;  margin: 10px; width: 800px;"></div>
+        <div id="btn_condition">
+    <input class="btn_condition" current_condition="rule - 1" type="submit" value="+ Add Condition" name="btn_condition"/>
+        </div>
+<!--</form>-->
+
+<!--<form method="post" action="/action/">-->
+<!--    {% csrf_token %}-->
+    <h2>then</h2>
+    <div class="action_block"  style="border: 5px solid black;
+  padding: 10px;  margin: 10px; width: 800px;"></div>
+        <div id="btn_action">
+    <input class="btn_action" current_action="rule - 1" type="submit" value="+ Add Action" name="btn_action" />
+        </div>
+<!--</form>-->
+</fieldset>
+
+            </div>
+    </div>
+
+
+    <br><br><br><br><br><br><br>
+<input id="add_btn" type="button" value="Finish" style=" padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px; font-size: 26px; float:right;">
+<input id="add_another_rule" type="button" value=" + Add Another Rule" style=" padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px; font-size: 26px; float:right;">
+
+</div>
+<script>
+
+  $(document).ready(function() {
+
+$('#btn_samad').click(function(event) {
+console.log('samad');
+
+});
+
+  $('#add_btn').hide();
+   $('#add_another_rule').hide();
+$('#conditions_div').hide();
+          $("#rule_div").on('click', '.btn_condition', function() {
+
+
+current_condition=$(this).attr('current_condition');
+console.log("updated current condition:" + current_condition);
+
+
+         $.ajax({
+      type: "POST",
+      url: "/addRules/",
+      data: { action : 'conditions' },
+      success: function(result){
+        alert("condition success");
+
+        $('#conditions_div').show();
+        $('#actions_div').hide();
+        $('#addRules').hide();
+
+
+
+      }
+    });
+return false;
+
+        });
+
+         });
+</script>
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+<div id="conditions_div">
+    <button id="btn_back_c">back</button>
+<br>
+
+
+
+<center>
+<button name="attribute_operand" type="button"  id="attribute_operand">Select Value</button>
+<button name="attribute_operation" type="button" id="attribute_operation">operation</button>
+<button name="value_operand" type="button" id="value_operand">Select Value</button></center>
+<br><br><br><br>
+
+<!--<select name="current_scope" id="select_scope">-->
+
+<!--  <option value="Campaign">Campaign</option>-->
+<!--  <option value="Groups">Adgroups</option>-->
+<!--  <option value="Keywords">keywords</option>-->
+<!--</select>-->
+    <select id="select_scope">
+    {% for key, value in condition_scope.items %}
+        {% if key == scope  %}
+            {% for v in value %}
+        <option value="{{ v.1 }}">{{ v.0 }}</option>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</select>
+<select name="date_range" id="date_range">
+
+  <option value="Today">Today</option>
+  <option value="Yesterday">Yesterday</option>
+  <option value="This Month">This Month</option>
+  <option value="Last Month">Last Month</option>
+  <option value="Last 7 days">Last 7 days</option>
+  <option value="Last 14 days">Last 14 days</option>
+  <option value="Last 30 days">Last 30 days</option>
+
+
+
+</select>
+<input id="submit_btn" type="button" value="Next" style=" padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px; font-size: 16px; float:right;">
+
+<br><br><br>
+
+<div id="attributes_div">
+
+    {% for e in fields %}
+        <button   class="field_btn" tagvalue="{{ e.1 }}" value="{{ e.2 }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ e.0 }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+   {% endfor %}
+
+</div>
+
+<div id="operations_div_string">
+    {% for key,value in operations.items %}
+    {% if key == 'string' %}
+        {% for k,v in value.items %}
+    <button  name="field" class="operation_btn" tagvalue="{{ k }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+
+</div>
+
+<div id="operations_div_number">
+
+
+
+    {% for key,value in operations.items %}
+
+
+     {% if key == 'number' %}
+        {% for k,v in value.items %}
+
+    <button  name="field" class="operation_btn" tagvalue="{{ k }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+
+
+    {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+
+</div>
+
+<div id="operations_div_label">
+
+
+
+    {% for key,value in operations.items %}
+     {% if key == 'label' %}
+            {% for k,v in value.items %}
+
+    <button  name="field" class="operation_btn" tagvalue="{{ k }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+
+
+</div>
+
+
+
+<div id="value_div_string">
+<center>
+  Enter String:<br>
+  <input type="text" class="value_text">
+<!--    <button   style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">Next</button>-->
+</center>
+
+</div>
+<div id="value_div_number">
+<center>
+  Enter Number:<br>
+  <input type="number" class="value_text">
+<!--    <button   style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">Next</button>-->
+</center>
+
+</div>
+
+<div id="value_div_bidding">
+
+    {% for key,value in values_operand.items %}
+     {% if key == 'BiddingStrategyType' %}
+            {% for v in value %}
+
+    <button   class="values_btn" tagvalue="{{ v.1 }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v.0 }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+
+</div>
+<div id="value_div_advertising">
+
+    {% for key,value in values_operand.items %}
+     {% if key == 'AdvertisingChannelType' %}
+            {% for v in value %}
+
+    <button   class="values_btn" tagvalue="{{ v.1 }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v.0 }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+</div>
+<div id="value_div_matchtype">
+
+    {% for key,value in values_operand.items %}
+     {% if key == 'KeywordMatchType' %}
+            {% for v in value %}
+
+    <button   class="values_btn" tagvalue="{{ v.1 }}" style="padding: 5px 5px 5px 5px; margin: 10px 10px 10px 10px;">{{ v.0 }}</button>
+        <div style="width:5px; height:auto; display:inline-block;"></div>
+        {% endfor %}
+
+    {% endif %}
+    {% endfor %}
+
+</div>
+</div>
+
+<div id="actions_div">
+    <button id="btn_back_a">back</button><br><br>
+    <p>When {{ scope }} conditions match, apply action on</p>  <select id="action_scope">
+                                                                {% for key, value in action_scope.items %}
+                                                                    {% if key == scope  %}
+                                                                        {% for v in value %}
+                                                                    <option value="{{ v.1 }}">{{ v.0 }}</option>
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+    <br><br>
+    <p>Action</p> <select id="actions">
+ <option>Actions</option>
+     {% for key, value in action_dictionary.items %}
+         {% if key == scope  %}
+               {% for v in value %}
+                    <option value="{{ v.1 }}">{{ v.0 }}</option>
+              {% endfor %}
+             {% endif %}
+           {% endfor %}
+
+                </select>
+
+   &nbsp;&nbsp;&nbsp;&nbsp; <select id="actions_options">
+                <option>Options</option>
+
+
+                </select>
+    <div id="action_set_values_input">
+   <br><br><p id="action_value_type" style="display:inline"> </p> <input id="action_value_type_val" required type="number" ><br><br>
+   <p id="action_value_min" style="display:inline"> </p> <input id="action_value_min_val" required type="number" ><br><br>
+   <p id="action_value_max" style="display:inline"> </p> <input id="action_value_max_val" required type="number" ><br><br>
+</div>
+<br><br>
+<div id="action_set_values_label">
+    <p id="action_value_label" style="display:inline"></p> &nbsp;&nbsp;&nbsp;&nbsp; <input id="action_value_label_text" type="text">
+</div>
+<div id="action_set_values_status">
+
+</div>
+<input id="submit_btn_action" type="button" value="Next" style=" padding: 5px 5px 5px 5px; margin: 10px 10px 10px 0px; font-size: 16px;">
+
+</div>
+
+
+
+<script>
+    $(document).ready(function(){
+    $("#btn_back_a").click(function(){alert('back');$("#addRules").show();$("#actions_div").hide();});
+    $("#btn_back_c").click(function(){alert('back');$("#addRules").show();$("#conditions_div").hide();});
+    });
+</script>
+
+<script>
+
+    $(document).ready(function() {
+
+    current_condition=0
+    current_action=0
+        var rule_div_clone=$("#rule_div");
+         $("#submit_btn").hide();
+         $("#submit_btn_action").hide();
+        $("#submit_btn").attr("disabled", true);
+        $("#value_div_bidding").hide();
+             $("#value_div_advertising").hide();
+             $("#value_div_matchtype").hide();
+             $("#value_div_number").hide();
+             $("#value_div_string").hide();
+        $("#select_scope").hide();
+        $("#date_range").hide();
+        $("#attributes_div").hide();
+
+        $("#attribute_operand").click(function(event) {
+
+            $("#select_scope").show();
+                    $("#date_range").show();
+                    $("#submit_btn").show();
+
+            $("#attributes_div").show();
+            $("#operations_div_string").hide();
+            $("#operations_div_number").hide();
+            $("#operations_div_label").hide();
+             $("#value_div_bidding").hide();
+             $("#value_div_advertising").hide();
+             $("#value_div_matchtype").hide();
+             $("#value_div_number").hide();
+             $("#value_div_string").hide();
+        });
+
+        $("#value_operand").click(function(event) {
+            $("#attributes_div").hide();
+
+
+
+            $("#operations_div_string").hide();
+            $("#operations_div_number").hide();
+            $("#operations_div_label").hide();
+
+           if ($("#attribute_operand").attr('tagvalue')=='BiddingStrategyType')
+           {
+            $("#value_div_bidding").show();
+           }
+           else if ($("#attribute_operand").attr('tagvalue')=='AdvertisingChannelType')
+           {
+            $("#value_div_advertising").show();
+           }
+           else if ($("#attribute_operand").attr('tagvalue')=='KeywordMatchType')
+           {
+            $("#value_div_matchtype").show();
+           }
+           else if ($("#attribute_operand").attr('value')=='number')
+           {
+            $("#value_div_number").show();
+           }
+           else if ($("#attribute_operand").attr('value')=='string')
+           {
+               $("#value_div_string").show();
+           }
+           else if ($("#attribute_operand").attr('value')=='label')
+           {
+               $("#value_div_string").show();
+           }
+
+        });
+
+        $("#attributes_div").on('click', '.field_btn', function() {
+
+            $("#attribute_operand").text($(this).text());
+            $("#attribute_operand").attr('tagvalue',$(this).attr('tagvalue'))
+            $("#attribute_operand").val($(this).val());
+            $("#attribute_operation").val($(this).val());
+            $("#attribute_operation").text('operation');
+
+
+
+        });
+          $("#value_div_bidding").on('click', '.values_btn', function() {
+
+            $("#value_operand").text($(this).text());
+            $("#value_operand").attr('tagvalue',$(this).attr('tagvalue'));
+                    $("#submit_btn").removeAttr("disabled");
+
+        });
+          $("#value_div_advertising").on('click', '.values_btn', function() {
+
+             $("#value_operand").text($(this).text());
+            $("#value_operand").attr('tagvalue',$(this).attr('tagvalue'))
+            $("#submit_btn").removeAttr("disabled");
+
+
+
+        });
+          $("#value_div_matchtype").on('click', '.values_btn', function() {
+
+             $("#value_operand").text($(this).text());
+            $("#value_operand").attr('tagvalue',$(this).attr('tagvalue'))
+            $("#submit_btn").removeAttr("disabled");
+
+
+
+        });
+        $('.value_text').on('input',function(e){
+            $("#value_operand").text($(this).val());
+             $("#value_operand").attr('tagvalue',$(this).val())
+             $("#submit_btn").removeAttr("disabled");
+});
+
+
+
+
+        $("#operations_div_string").hide();
+        $("#operations_div_number").hide();
+        $("#operations_div_label").hide();
+
+        $("#attribute_operation").click(function() {
+
+            if ($(this).attr('value') == 'string') {
+                $("#operations_div_string").show();
+            } else if ($(this).attr('value') == 'number') {
+                $("#operations_div_number").show();
+            }
+            if ($(this).attr('value') == 'label') {
+                $("#operations_div_label").show();
+            }
+
+
+            $("#attributes_div").hide();
+
+
+               $("#value_div_bidding").hide();
+             $("#value_div_advertising").hide();
+             $("#value_div_matchtype").hide();
+             $("#value_div_number").hide();
+             $("#value_div_string").hide();
+
+        });
+
+        $(".operation_btn").click(function() {
+            $("#attribute_operation").text($(this).text());
+            $("#attribute_operation").attr('tagvalue',$(this).attr('tagvalue'));
+
+        });
+
+        var all_rules={};
+        var all_rules_for_print={}
+
+        all_rules['rule - '+ (Object.keys(all_rules).length+1)]={
+        'all_conditions' : [],
+        'all_actions' : []
+        };
+        all_rules_for_print['rule - '+ (Object.keys(all_rules_for_print).length+1)]={
+        'all_conditions' : [],
+        'all_actions' : []
+        };
+        console.log('allrules',all_rules);
+         $("#submit_btn").click(function() {
+
+
+            var condition_data= {
+      current_scope : $('#select_scope').val(),
+      date_range : $('#date_range').val(),
+      attribute_operand_tagvalue : $('#attribute_operand').attr('tagvalue'),
+      attribute_operation_tagvalue : $('#attribute_operation').attr('tagvalue'),
+      operation_type : $('#attribute_operation').attr('value'),
+      value_operand_tagvalue : $('#value_operand').attr('tagvalue'),
+
+      attribute_operand : $('#attribute_operand').text(),
+      attribute_operation : $('#attribute_operation').text(),
+      value_operand : $('#value_operand').text()
+      };
+
+        console.log('current condition',current_condition);
+               console.log('allrules',all_rules);
+      all_rules[current_condition]['all_conditions'].push(condition_data);
+      all_rules_for_print[current_condition]['all_conditions']=[]
+
+       all_rules[current_condition]['all_conditions'].forEach(function(item){
+      all_rules_for_print[current_condition]['all_conditions'].push([item.attribute_operand,item.attribute_operation,item.value_operand,'<br>'.concat('(scope:',item.current_scope,',',' date range: ',item.date_range,')')].join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"));
+});
+
+
+        console.log("condition block number current : "+current_condition);
+        document.getElementsByClassName("condition_block")[parseInt(current_condition.replace('rule - ',''))-1].innerHTML =(all_rules_for_print[current_condition]['all_conditions']).join("<br> & <br>");
+         $('#conditions_div').hide();
+         $('#actions_div').hide();
+        $('#addRules').show();
+        alert("done");
+        console.log("RESULT : ");
+        console.log(all_rules_for_print);
+
+
+
+        });
+   $("#submit_btn_action").click(function() {
+
+
+ $('#add_another_rule').show();
+  $('#add_btn').show();
+  $('#action_set_values_input').hide();
+   $('#action_set_values_status').hide();
+    $('#action_set_values_label').hide();
+     $("#submit_btn_action").hide();
+
+            var action_data= {
+      current_action_scope_value : $('#action_scope').val(),
+      action_attribute_operand_value : $('#actions').val(),
+      action_operation_value : $('#actions_options').val(),
+
+      action_attribute_operand : $('#actions option:selected').text(),
+      action_operation : $('#actions_options option:selected').text(),
+      action_value_operand : "",
+      current_action_scope : $('#action_scope option:selected').text(),
+      };
+
+      if($('#actions').val()=='status')
+      {
+      alert('status');
+        if ( $('#actions_options option:selected').val()=='enable' ){ action_data.action_value_operand='ENABLED' }
+        else if ( $('#actions_options option:selected').val()=='pause' ){ action_data.action_value_operand='PAUSED' }
+        //action_data.action_value_operand = $('#actions_options option:selected').val();
+
+      }
+      else if ($('#actions').val()=='label')
+      {
+alert('label');
+        action_data.action_value_operand = $('#action_value_label_text').val();
+      }
+      else
+      {
+        action_data.action_value_operand = $('#action_value_type_val').val();
+      }
+
+
+
+      console.log('current action',current_action)
+      all_rules[current_action]['all_actions'].push(action_data);
+
+       all_rules_for_print[current_action]['all_actions']=[]
+
+      all_rules[current_action]['all_actions'].forEach(function(item){
+      all_rules_for_print[current_action]['all_actions'].push([item.action_operation,item.action_value_operand,"<br>".concat('On : ',item.current_action_scope)].join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"));
+
+
+});
+
+
+        document.getElementsByClassName("action_block")[parseInt(current_action.replace('rule - ',''))-1].innerHTML =(all_rules_for_print[current_action]['all_actions']).join("<br> & <br>");
+         $('#conditions_div').hide();
+         $('#actions_div').hide();
+        $('#addRules').show();
+        alert("done");
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+        $('#select_scope').change(function() {
+            $("#operations_div_string").hide();
+            $("#operations_div_number").hide();
+            $("#operations_div_label").hide();
+             $("#value_div_bidding").hide();
+             $("#value_div_advertising").hide();
+             $("#value_div_matchtype").hide();
+             $("#value_div_number").hide();
+             $("#value_div_string").hide();
+            var value = $(this).val();
+            var attr_div = $('#attributes_div').html();
+
+            $.ajax({
+                type: "POST",
+                url: "/condition/",
+                data: {
+                    'current_scope': value,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+
+                    $('#attributes_div').html(data);
+                    $("#attributes_div").show();
+                    $('#actions_options').hide();
+
+                }
+            });
+        });
+        $('#actions_options').hide();
+        $('#action_scope').change(function() {
+        $("#submit_btn_action").hide();
+        $("#submit_btn_action").attr("disabled", true);
+        var value = $(this).val();
+        var action_scope_div = $('#action_scope').html();
+         $.ajax({
+                type: "POST",
+                url: "/ajaxaction/",
+                data: {
+                    'action_on': value,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+
+                    $('#actions').html(data);
+                    $('#actions_options').hide();
+                      $('#action_set_values_input').hide();
+                    $('#action_set_values_label').hide();
+                    $('#action_set_values_status').hide();
+
+
+                }
+            });
+
+
+        });
+        $("#actions").on("click", function() {
+        $('#actions').change(function() {
+ if ($('#actions option:selected').text()!='Actions')
+ {
+   $('#actions_options').show();
+   }
+   });
+});
+        $('#actions').change(function() {
+       $("#submit_btn_action").hide();
+        $("#submit_btn_action").attr("disabled", true);
+
+
+        var value = $(this).val();
+        var action_scope_div = $('#action_scope').html();
+        if ($('#actions option:selected').text()!='Actions') {
+         $.ajax({
+                type: "POST",
+                url: "/ajax_action_options/",
+                data: {
+                    'action_option': value,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+
+
+                    $('#actions_options').html(data);
+                    $('#actions_options').show();
+
+                    $('#action_set_values_input').hide();
+                    $('#action_set_values_label').hide();
+                    $('#action_set_values_status').hide();
+
+                }
+            });
+            }
+            else if ($('#actions option:selected').text()=='Actions')
+                {
+
+
+                    $('#action_set_values_input').hide();
+                    $('#action_set_values_label').hide();
+                    $('#action_set_values_status').hide();
+                                        $('#actions_options').hide();
+
+                }
+
+        });
+        $('#action_set_values_input').hide();
+                $('#action_set_values_status').hide();
+                        $('#action_set_values_label').hide();
+        $('#actions_options').change(function() {
+        $("#submit_btn_action").show();
+
+
+
+        if ($('#actions option:selected').val()=='status')
+        {
+             $('#action_set_values_input').hide();
+             $('#action_set_values_status').show();
+              $('#action_set_values_label').hide();
+               document.getElementById("action_set_values_status").innerHTML=$('#actions_options option:selected').text()+ ' ' + $('#action_scope option:selected').text();
+                $("#submit_btn_action").removeAttr("disabled");
+
+        }
+        else if ($('#actions option:selected').val()=='label')
+        {
+             $('#action_set_values_input').hide();
+             $('#action_set_values_status').hide();
+              $('#action_set_values_label').show();
+     document.getElementById("action_value_label").innerHTML=$('#actions_options option:selected').text();
+
+        }
+        else
+        {
+
+            $('#action_set_values_input').show();
+            document.getElementById("action_value_type").innerHTML=$('#actions_options option:selected').text();
+            document.getElementById("action_value_min").innerHTML='Minimum ' +$('#actions option:selected').text().slice(6);
+            document.getElementById("action_value_max").innerHTML='Maximum '+$('#actions option:selected').text().slice(6);
+        }
+        });
+         $('#action_value_label_text').on('  input',function(e){
+
+            $("#submit_btn_action").removeAttr("disabled");
+         });
+
+    $('#action_value_type_val').on('  input',function(e){
+          var type =  document.getElementById("action_value_type_val");
+          var min =  document.getElementById('action_value_min_val');
+            var max =  document.getElementById('action_value_max_val');
+
+
+
+             if(type.value.length>0  && min.value.length>0 && max.value.length>0){
+              $("#submit_btn_action").removeAttr("disabled");
+            }
+            else
+            {
+                $("#submit_btn_action").attr("disabled", true);
+            }
+
+
+         });
+          $('#action_value_min_val').on('  input',function(e){
+            var type=  document.getElementById("action_value_type_val");
+          var min =  document.getElementById('action_value_min_val');
+            var max =  document.getElementById('action_value_max_val');
+              if(type.value.length>0  && min.value.length>0 && max.value.length>0){
+              $("#submit_btn_action").removeAttr("disabled");
+            }
+            else
+            {
+                $("#submit_btn_action").attr("disabled", true);
+            }
+         });
+          $('#action_value_max_val').on('  input',function(e){
+          var type =  document.getElementById("action_value_type_val");
+          var min =  document.getElementById('action_value_min_val');
+            var max =  document.getElementById('action_value_max_val');
+               if(type.value.length>0  && min.value.length>0 && max.value.length>0){
+              $("#submit_btn_action").removeAttr("disabled");
+            }
+            else
+            {
+                $("#submit_btn_action").attr("disabled", true);
+            }
+         });
+
+         $("#add_another_rule").click(function(event){
+         all_rules['rule - '+ (Object.keys(all_rules).length+1)]={
+        'all_conditions' : [],
+        'all_actions' : []
+        };
+         var rule_div=document.getElementById("rule_div");
+         var innerHTMLString = "";
+
+for (var i in all_rules) {
+   innerHTMLString +='<div class="rule_div"  name="rule_div_name">'
+    +'<fieldset><legend class="rule_number">'+i+'</legend>'
+    +'<h2>if</h2>'
+    +'<div class="condition_block"  style="border: 5px solid black;padding: 10px;  margin: 10px; width: 800px;"></div>'
+    +'<div class="btn_condition"><input  class="btn_condition" current_condition="'+i+'" type="submit" value="+ Add Condition" name="btn_condition"/></div>'
+    +'<h2>then</h2>'
+    +'<div class="action_block"  style="border: 5px solid black;padding: 10px;  margin: 10px; width: 800px;"></div>'
+    +'<div class="btn_action"><input class="btn_action" current_action="'+i+'" type="submit" value="+ Add Action" name="btn_action" /></div></fieldset></div>   '
+    +'<br><br><br><br><br>';
+
+}
+
+
+document.getElementById("rule_div").innerHTML=innerHTMLString;
+      c=0;
+
+for ( var i in all_rules_for_print )
+{
+
+
+   console.log("count:"+c);
+    $(".condition_block")[c].innerHTML =(all_rules_for_print[i]['all_conditions']).join("<br> & <br>");
+    $(".action_block")[c].innerHTML =(all_rules_for_print[i]['all_actions']).join("<br> & <br>");
+c=c+1;
+
+}
+
+var len=$(".condition_block").length;
+
+
+        all_rules_for_print['rule - '+ (Object.keys(all_rules_for_print).length+1)]={
+        'all_conditions' : [],
+        'all_actions' : []
+        };
+
+         alert("add new");
+         //var newRule = ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+         });
+         var c=0;
+
+$("#add_btn").click(function(event) {
+ $.ajax({
+                type: "POST",
+                url: "/addRules/",
+                data: {
+                    'recipe_id' : {{ recipe_id }},
+                    'action' : 'addrule',
+                    'all_rules': JSON.stringify(all_rules),
+                    'all_rules_for_print': JSON.stringify(all_rules_for_print),
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+                alert("Rule Added");
+                window.location = '/recipe_dash/';
+
+
+                }
+            });
+
+
+        });
+
+all_rules= {{ edit_all_rules | safe }}
+//if( Object.keys(all_rules).length >0 )
+
+all_rules_for_print={}
+var innerHTMLString = "";
+for (var i in all_rules) {
+   innerHTMLString +='<div class="rule_div"  name="rule_div_name">'
+    +'<fieldset><legend class="rule_number">'+i+'</legend>'
+    +'<h2>if</h2>'
+    +'<div class="condition_block"  style="border: 5px solid black;padding: 10px;  margin: 10px; width: 800px;"></div>'
+    +'<div class="btn_condition"><input  class="btn_condition" current_condition="'+i+'" type="submit" value="+ Add Condition" name="btn_condition"/></div>'
+    +'<h2>then</h2>'
+    +'<div class="action_block"  style="border: 5px solid black;padding: 10px;  margin: 10px; width: 800px;"></div>'
+    +'<div class="btn_action"><input class="btn_action" current_action="'+i+'" type="submit" value="+ Add Action" name="btn_action" /></div></fieldset></div>   '
+    +'<br><br><br><br><br>';
+    all_rules_for_print[i]={'all_conditions':[],'all_actions':[]}
+
+    console.log('allrules',all_rules);
+    all_rules[i]['all_conditions'].forEach(function(item){
+      all_rules_for_print[i]['all_conditions'].push([item.attribute_operand,item.attribute_operation,item.value_operand,'<br>'.concat('(scope:',item.current_scope,',',' date range: ',item.date_range,')')].join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"));
+});
+all_rules[i]['all_actions'].forEach(function(item){
+      all_rules_for_print[i]['all_actions'].push([item.action_operation,item.action_value_operand,"<br>".concat('On : ',item.current_action_scope)].join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"));
+});
+}
+document.getElementById("rule_div").innerHTML=innerHTMLString;
+      c=0;
+for ( var i in all_rules_for_print )
+{
+   console.log("count:"+c);
+    $(".condition_block")[c].innerHTML =(all_rules_for_print[i]['all_conditions']).join("<br> & <br>");
+    $(".action_block")[c].innerHTML =(all_rules_for_print[i]['all_actions']).join("<br> & <br>");
+c=c+1;
+}
+$('#add_another_rule').show();
+  $('#add_btn').show();
+console.log("recipe id", {{ recipe_id }} );
+
+    });
+</script>
+<script>
+ $(document).ready(function() {
+ $("#actions_div").hide();
+ $("#submit_btn_action").hide();
+        $("#submit_btn_action").attr("disabled", true);
+      $("#rule_div").on('click', '.btn_action', function() {
+current_action=$(this).attr('current_action');
+console.log("updated current action:" + current_action);
+            $("#conditions_div").hide();
+            $("#addRules").hide();
+            $("#actions_div").show();
+return false;
+        });
+
+    });
+</script>

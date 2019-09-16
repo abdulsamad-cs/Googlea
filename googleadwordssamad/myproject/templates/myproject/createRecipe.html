@@ -1,0 +1,8 @@
+<legend>Welcome to rule engine.</legend><br>
+<h>What should this recipe run on? </h><br><br>
+<form method="post" action="/recipeSettings/">
+    {% csrf_token %}
+    <input type="submit" value="Campaign" name="btn_scope"/>
+    <input type="submit" value="Groups" name="btn_scope" />
+    <input type="submit" value="Keywords" name="btn_scope"/>
+</form>

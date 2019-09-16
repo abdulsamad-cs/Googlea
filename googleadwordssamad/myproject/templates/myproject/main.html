@@ -1,0 +1,35 @@
+<body style="overflow-y: scroll;">
+Welcome to google adwords project
+
+<form action="/myproject/campaigns/">
+    <input type="submit" value="Campaign section" />
+</form>
+
+<form action="/myproject/groups/">
+    <input type="submit" value="Groups Section" />
+</form>
+<form action="/myproject/keywords/">
+    <input type="submit" value="Keywords Section" />
+</form>
+<form action="/myproject/ruleEngine/">
+    <input type="submit" value="Rule Engine" />
+</form>
+<form action="/recipe_dash/">
+    <input type="submit" value="Create Recipe" />
+</form>
+<form action="/adscheduler/">
+    <input type="submit" value="Ad Scheduler" />
+</form>
+
+<br><br>
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<br><br><br><br><br>
+</body>

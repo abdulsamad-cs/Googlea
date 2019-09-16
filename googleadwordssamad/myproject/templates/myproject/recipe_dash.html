@@ -1,0 +1,11 @@
+
+<form method="POST">
+    {% csrf_token %}
+    <legend><h1> Manage your recipes.</h1> </legend><br><br>
+    <fieldset >
+        {{ recipe_dash_form.as_p }}
+
+    </fieldset>
+    <input type="submit" value="Edit" name="btn_edit_recipe">
+        <a href="{% url 'createRecipe' %}">Build your own</a>
+  </form>

@@ -1,0 +1,9 @@
+<form method="POST">
+    {% csrf_token %}
+    <legend> Add Campaign </legend><br><br>
+    <fieldset >
+        {{ add_campaign_form.as_p }}
+
+    </fieldset>
+    <input type="submit" value="Add">
+  </form>

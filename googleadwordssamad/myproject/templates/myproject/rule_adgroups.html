@@ -1,0 +1,9 @@
+<form method="POST">
+    {% csrf_token %}
+    <legend> Here you define scenarios for Adgroups </legend><br><br>
+    <fieldset >
+        {{ rule_adgroups_form.as_p }}
+
+    </fieldset>
+    <input type="submit" value="Save" name="btn_add_rule">
+  </form>
