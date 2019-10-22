@@ -6,7 +6,7 @@ from googleadwordssamad.celery_tasks import app
 from googleadwordssamad.myproject.models import AdwordsCampaign, KeywordPerformanceReportModel, \
     CampaignPerformanceReportModel
 
-client = adwords.AdWordsClient.LoadFromStorage()
+client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
 NOT_ENTERED = -999
 
 
@@ -418,5 +418,5 @@ def pause_campaign_based_on_date_intervals(campaign_name,start_time,end_time,dat
 
 '''
 if __name__ == '__main__':
-    client = adwords.AdWordsClient.LoadFromStorage()
+    client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
     get_all_campaign(client)

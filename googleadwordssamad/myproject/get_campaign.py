@@ -4,7 +4,7 @@ from googleads import adwords
 
 logger = get_task_logger(__name__)
 
-client = adwords.AdWordsClient.LoadFromStorage()
+client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
 
 
 # @app.task

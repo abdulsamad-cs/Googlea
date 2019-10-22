@@ -2,12 +2,9 @@ from __future__ import absolute_import, unicode_literals
 from googleadwordssamad.celery_tasks import app
 from googleads import adwords
 from .add_budget import AddBudget
-#from adwords_campaign.helpers import AddBudget, GetCampaigns
-#import logging
 
-#logger = logging.getLogger(__name__)
 
-client = adwords.AdWordsClient.LoadFromStorage()
+client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
 @app.task
 def AddCampaign(campaign_name, status, ad_channel, start_date, end_date,budget):
     campaign_service = client.GetService('CampaignService')

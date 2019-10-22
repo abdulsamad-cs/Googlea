@@ -33,7 +33,7 @@ def write_in_text_file(name,fields):
 
 if __name__ == '__main__':
   # Initialize client object.
-  adwords_client = adwords.AdWordsClient.LoadFromStorage()
+  adwords_client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
 
   main(adwords_client, REPORT_TYPE)
 

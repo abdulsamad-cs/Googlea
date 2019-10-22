@@ -21,7 +21,7 @@ from .utils.utils import PauseAdGroups, update_campaign_status, update_adgroup_s
 from datetime import datetime
 
 logger = get_task_logger(__name__)
-client = adwords.AdWordsClient.LoadFromStorage()
+client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
 
 
 @app.task
@@ -1142,18 +1142,18 @@ def apply_action(action_scope, ids, attribute_operand, operation, attribute_valu
         elif attribute_value == 'pause':
             print("Pause these", action_scope)
     elif attribute_operand == 'label':
-        print("============================IN CAMPAIGN LABEL=============================1")
+        # print("============================IN CAMPAIGN LABEL=============================1")
         if action_scope == 'Campaign':
-            print("============================IN CAMPAIGN LABEL=============================2")
-            print(ids, operation, attribute_value)
+            # print("============================IN CAMPAIGN LABEL=============================2")
+            # print(ids, operation, attribute_value)
             update_campaign_labels(ids, operation, attribute_value)
         elif action_scope == 'Groups':
-            print("============================IN AdGroup LABEL=============================2")
-            print(type(ids), operation, attribute_value)
+            # print("============================IN AdGroup LABEL=============================2")
+            # print(type(ids), operation, attribute_value)
             update_adgroup_labels(ids, operation, attribute_value)
         elif action_scope == 'Keywords:':
-            print("============================IN Keyword LABEL=============================2")
-            print(ids, operation, attribute_value)
+            # print("============================IN Keyword LABEL=============================2")
+            # print(ids, operation, attribute_value)
             update_keyword_labels(ids, operation, attribute_value)
         if operation == 'ADD':
             print('adding label to these ', action_scope, ids)
@@ -1200,8 +1200,8 @@ def run_rule_engine():
             total_conditions = 0
             for con in Rule_Engine_Conditions.objects.filter(rule_id=rule.id):
                 total_conditions = total_conditions + 1
-                print("=====================================================================")
-                print(con.attribute_operand, con.value_operand)
+                # print("=====================================================================")
+                # print(con.attribute_operand, con.value_operand)
                 # print(type(con.attribute_operand), "=====================================================================")
                 if con.scope == "Campaign":
                     scope_model = CampaignPerformanceReportModel
@@ -1328,8 +1328,8 @@ def match_condition(scope_model, attribute_operand, value_operand, operation, op
 
     elif operation_type == 'label':
         if operation == 'e':
-            print("currenting", scope_model.objects.get(id=67).Labels,
-                  '["' + value_operand + '"]')
+            # print("currenting", scope_model.objects.get(id=67).Labels,
+            #       '["' + value_operand + '"]')
 
             return scope_model.objects.filter(**{attribute_operand + '__exact': '["' + value_operand + '"]'})
         elif operation == 'ea':

@@ -4,7 +4,7 @@ from googleadwordssamad import settings
 from .models import CampaignPerformanceReportModel
 
 PAGE_SIZE = 100
-client = adwords.AdWordsClient.LoadFromStorage()
+client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
 
 
 def main(client):
@@ -83,6 +83,6 @@ def update_campaign_labels(campaign_id, operation, labels):
 
 
 if __name__ == '__main__':
-    adwords_client = adwords.AdWordsClient.LoadFromStorage()
+    adwords_client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
     # main(adwords_client)
-    update_campaign_labels('6454212146', 'ADD', 'Usamaaaasaaaaaaqan')
+    update_campaign_labels('6454212146', 'ADD', 'Samad')

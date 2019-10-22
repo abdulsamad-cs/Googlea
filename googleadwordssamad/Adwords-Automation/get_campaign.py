@@ -194,7 +194,7 @@ def increaseCPCbids():
 
 
 if __name__ == '__main__':
-    adwords_client = adwords.AdWordsClient.LoadFromStorage()
+    adwords_client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
     # main(adwords_client)
     # update_campaign_labels('6454212146', 'AD-D', 'Usa')
     setCPCbids('75822879265', 50000000)

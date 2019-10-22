@@ -39,14 +39,14 @@ app.conf.beat_schedule = {
     #              "schedule": 10.0
     #          },
     #
-    # "get-campaign-report": {
-    #              "task": "googleadwordssamad.myproject.tasks.get_all_attributes_campaign",
-    #              "schedule": 10.0
-    #          },
-    "get-adgroup-report": {
-        "task": "googleadwordssamad.myproject.tasks.get_all_attributes_adgroup",
-        "schedule": 10.0
-    },
+    "get-campaign-report": {
+                 "task": "googleadwordssamad.myproject.tasks.get_all_attributes_campaign",
+                 "schedule": 10.0
+             },
+    # "get-adgroup-report": {
+    #     "task": "googleadwordssamad.myproject.tasks.get_all_attributes_adgroup",
+    #     "schedule": 10.0
+    # },
     # "get-keyword-report": {
     #     "task": "googleadwordssamad.myproject.tasks.get_all_attributes_keyword",
     #     "schedule": 10.0

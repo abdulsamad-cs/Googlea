@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dajaxice',
-    'dajax'
 ]
 
 MIDDLEWARE = [
@@ -88,7 +86,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'root',
         'HOST': 'localhost',
-        'PORT': '6000'
+        'PORT': ''
     }
 }
 

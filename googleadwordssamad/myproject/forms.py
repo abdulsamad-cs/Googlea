@@ -113,7 +113,7 @@ class adscheduler_form(forms.Form):
         start = cleaned_data.get("starttime")
         end = cleaned_data.get("endtime")
         if day:
-            print("====================", cleaned_data)
+            # print("====================", cleaned_data)
             if int(start) >= int(end):
                 print("helllooo", type(start), end)
                 raise forms.ValidationError("Start time cannot come after end time.")

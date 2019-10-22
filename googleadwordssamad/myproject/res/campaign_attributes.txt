@@ -39,3 +39,4 @@ SearchClickShare
 SearchTopImpressionShare
 SearchRankLostTopImpressionShare
 SearchRankLostAbsoluteTopImpressionShare
+AverageFrequency

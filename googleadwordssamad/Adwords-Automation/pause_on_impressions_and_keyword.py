@@ -82,7 +82,7 @@ def main(client, keyword):
 
 if __name__ == '__main__':
   # Initialize client object.
-  adwords_client = adwords.AdWordsClient.LoadFromStorage()
+  adwords_client = adwords.AdWordsClient.LoadFromStorage("/home/oem/Documents/va8ive/googleadwordssamad/google-ads.yaml")
   keyword = input('Enter the keyword: ')
 
   main(adwords_client,keyword)
